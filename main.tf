@@ -61,7 +61,7 @@ module "module-eks" {
   subnet_ids             = module.module-vpc.private_subnets // O módulo VPC exporta os IDs das subnets privadas criadas, que são necessárias para criar o cluster EKS dentro dessas subnets privadas
   endpoint_public_access = true                              // para permitir acesso ao endpoint do cluster EKS pela internet, caso contrário o endpoint do cluster EKS só seria acessível dentro da VPC
 
-
+  
   eks_managed_node_groups = {
     "ng-1" = {
       desired_capacity = 3 // número de nós desejados para o cluster EKS, nesse caso estamos utilizando 3 nós, mas esse número pode ser ajustado de acordo com a necessidade do ambiente

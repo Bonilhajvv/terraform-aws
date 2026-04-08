@@ -71,6 +71,14 @@ Declare sua infraestrutura de forma legível e versão o seu ambiente.
 
 ---
 
+## Recursos Adicionais
+
+Para facilitar o estudo e tirar dúvidas sobre os conceitos aplicados neste projeto, você pode consultar minhas anotações pessoais no Notion:
+
+- [Anotações de Estudos - Terraform](https://www.notion.so/Terraform-33b6a62fe40e804da35ec9080efe3a34?source=copy_link)
+
+---
+
 ## Créditos e Agradecimentos
 
 Este projeto foi desenvolvido com base no conteúdo e ensinamentos de **Fabricio Veronez**.

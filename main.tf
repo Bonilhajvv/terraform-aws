@@ -34,17 +34,17 @@ module "module-vpc" {
   enable_dns_hostnames = true // para ter nomes ao invés de host dentro da VPC
 
   tags = {
-    "kubernetes.io/cluster/cluster_" = "shared" // tags para identificar os recursos da VPC, mostra que a vpc é compartilhada entre os clusters kubernetes
+    "kubernetes.io/cluster/module-eks" = "shared" // tag para identificar os recursos da VPC, mostra que a vpc é compartilhada entre os clusters kubernetes
   }
 
   public_subnet_tags = {
-    "kubernetes.io/cluster/cluster_" = "shared"
-    "kubernetes.io/role/elb"         = "1" // tag para o cluster kubernetes identificar os recursos da VPC e para identificar as subnets públicas para o ELB, dessa forma o cluster kubernetes irá criar os ELBs nas subnets públicas para expor os serviços do cluster para a internet
+    "kubernetes.io/cluster/module-eks" = "shared"
+    "kubernetes.io/role/elb"           = "1" // tag para o cluster kubernetes identificar os recursos da VPC e para identificar as subnets públicas para o ELB, dessa forma o cluster kubernetes irá criar os ELBs nas subnets públicas para expor os serviços do cluster para a internet
   }
 
   private_subnet_tags = {
-    "kubernetes.io/cluster/cluster_"  = "shared"
-    "kubernetes.io/role/internal-elb" = "1" // tag para o cluster kubernetes identificar os recursos da VPC e para identificar as subnets privadas para o ELB, dessa forma o cluster kubernetes irá criar os ELBs nas subnets privadas para expor os serviços do cluster para a vpc interna
+    "kubernetes.io/cluster/module-eks" = "shared"
+    "kubernetes.io/role/internal-elb"  = "1" // tag para o cluster kubernetes identificar os recursos da VPC e para identificar as subnets privadas para o ELB, dessa forma o cluster kubernetes irá criar os ELBs nas subnets privadas para expor os serviços do cluster para a vpc interna
   }
 }
 
@@ -60,6 +60,7 @@ module "module-eks" {
   vpc_id                 = module.module-vpc.vpc_id          // O módulo VPC exporta o ID da VPC criada, que é necessário para criar o cluster EKS dentro dessa VPC
   subnet_ids             = module.module-vpc.private_subnets // O módulo VPC exporta os IDs das subnets privadas criadas, que são necessárias para criar o cluster EKS dentro dessas subnets privadas
   endpoint_public_access = true                              // para permitir acesso ao endpoint do cluster EKS pela internet, caso contrário o endpoint do cluster EKS só seria acessível dentro da VPC
+  endpoint_private_access = true                             // permite que os nodes se comuniquem com o cluster EKS internamente pela rede da VPC
 
   
   eks_managed_node_groups = {
